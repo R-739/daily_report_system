@@ -108,11 +108,11 @@ public class Employee {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpadated_at() {
+    public Timestamp getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpadated_at(Timestamp updated_at) {
+    public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
 
