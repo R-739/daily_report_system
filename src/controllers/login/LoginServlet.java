@@ -33,8 +33,8 @@ public class LoginServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
         request.setAttribute("_token", request.getSession().getId());
         request.setAttribute("hasError", false);
         if(request.getSession().getAttribute("flush") != null) {
@@ -44,15 +44,14 @@ public class LoginServlet extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
         rd.forward(request, response);
-
-
     }
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
         Boolean check_result = false;
 
         String code = request.getParameter("code");
@@ -67,11 +66,13 @@ public class LoginServlet extends HttpServlet {
                     plain_pass,
                     (String)this.getServletContext().getAttribute("pepper")
                     );
+
+
             try {
                 e = em.createNamedQuery("checkLoginCodeAndPassword", Employee.class)
-                        .setParameter("code", code)
-                        .setParameter("pass", password)
-                        .getSingleResult();
+                      .setParameter("code", code)
+                      .setParameter("pass", password)
+                      .getSingleResult();
             } catch(NoResultException ex) {}
 
             em.close();
@@ -82,6 +83,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         if(!check_result) {
+
             request.setAttribute("_token", request.getSession().getId());
             request.setAttribute("hasError", true);
             request.setAttribute("code", code);
@@ -89,11 +91,12 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
             rd.forward(request, response);
         } else {
-        request.getSession().setAttribute("login_employee", e);
 
-        request.getSession().setAttribute("flush", "ログインしました。");
-        response.sendRedirect(request.getContextPath() + "/");
+            request.getSession().setAttribute("login_employee", e);
+
+            request.getSession().setAttribute("flush", "ログインしました。");
+            response.sendRedirect(request.getContextPath() + "/");
+        }
     }
-  }
 
 }
