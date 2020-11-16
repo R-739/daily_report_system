@@ -33,7 +33,6 @@ public class ReportsEditServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
         EntityManager em = DBUtil.createEntityManager();
 
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
@@ -43,13 +42,12 @@ public class ReportsEditServlet extends HttpServlet {
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
         if(r != null && login_employee.getId() == r.getEmployee().getId()) {
             request.setAttribute("report", r);
-            request.setAttribute("_token", r);
+            request.setAttribute("_token", request.getSession().getId());
             request.getSession().setAttribute("report_id", r.getId());
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/edit.jsp");
         rd.forward(request, response);
-
     }
 
 }

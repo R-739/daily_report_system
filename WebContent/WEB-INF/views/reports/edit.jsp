@@ -9,7 +9,7 @@
                 <form method="POST" action="<c:url value='/reports/update' />">
                     <c:import url="_form.jsp" />
                 </form>
-             </c:when>
+            </c:when>
              <c:otherwise>
                 <h2>お探しのデータは見つかりませんでした。</h2>
              </c:otherwise>
