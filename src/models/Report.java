@@ -70,6 +70,10 @@ public class Report {
         this.employee = employee;
     }
 
+    public Date getReport_date() {
+        return report_date;
+    }
+
     public void setReport_date(Date report_date) {
         this.report_date = report_date;
     }
