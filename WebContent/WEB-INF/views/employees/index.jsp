@@ -8,7 +8,7 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-        <h2>従業員　一覧</h2>
+        <h2>従業員 一覧</h2>
         <table id="employee_list">
             <tbody>
                 <tr>
@@ -48,6 +48,8 @@
              </c:choose>
           </c:forEach>
         </div>
-        <p><a href="<c:url value='/employees/new' />">新規従業員の登録</a></p>
+        <c:if test="${sessionScope.login_employee.admin_flag == 1 }">
+            <p><a href="<c:url value='/employees/new' />">新規従業員の登録</a></p>
+        </c:if>
         </c:param>
 </c:import>

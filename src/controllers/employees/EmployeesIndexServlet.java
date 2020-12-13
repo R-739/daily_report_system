@@ -35,6 +35,8 @@ public class EmployeesIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         EntityManager em = DBUtil.createEntityManager();
+        
+        
 
         int page = 1;
         try{

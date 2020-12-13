@@ -5,7 +5,7 @@
     <c:param name="content">
         <c:choose>
             <c:when test="${employee != null}">
-                <h2>id : ${employee.id} の従業員情報　詳細ページ</h2>
+                <h2>id : ${employee.id} の従業員情報 詳細ページ</h2>
 
                 <table>
                     <tbody>
@@ -40,13 +40,23 @@
                         </tr>
                     </tbody>
                 </table>
+                <c:if test="${sessionScope.login_employee.admin_flag == 1 }">
+                    <p><a href="<c:url value='/employees/edit?id=${employee.id}' />">この従業員情報を編集する</a></p>
+                </c:if>
 
-                <p><a href="<c:url value='/employees/edit?id=${employee.id}' />">この従業員情報を編集する</a></p>
+                    <form method="POST" action="<c:url value='/follows/update' />">
+                        <input type="hidden" name="_token" value="${_token}" />
+                        <button type="submit">フォローする</button>
+                    </form>
+
+
             </c:when>
             <c:otherwise>
+            <c:if test="${sessionScope.login_employee.admin_flag == 1 }">
                 <h2>お探しのデータは見つかりませんでした。</h2>
+            </c:if>
             </c:otherwise>
-        </c:choose>
+     </c:choose>
 
         <p><a href="<c:url value='/employees/index' />">一覧に戻る</a></p>
     </c:param>

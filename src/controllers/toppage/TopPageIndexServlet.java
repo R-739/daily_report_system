@@ -39,6 +39,7 @@ public class TopPageIndexServlet extends HttpServlet {
 
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
 
+
         int page;
         try{
             page = Integer.parseInt(request.getParameter("page"));
@@ -50,6 +51,7 @@ public class TopPageIndexServlet extends HttpServlet {
                                 .setFirstResult(15 * (page -1))
                                 .setMaxResults(15)
                                 .getResultList();
+
 
         long reports_count = (long)em.createNamedQuery("getMyReportsCount", Long.class)
                                 .setParameter("employee", login_employee)
