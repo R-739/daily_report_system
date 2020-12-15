@@ -40,6 +40,8 @@ public class ReportsIndexServlet extends HttpServlet {
         // TODO Auto-generated method stub
         EntityManager em = DBUtil.createEntityManager();
 
+
+
         int page;
         try{
             page = Integer.parseInt(request.getParameter("page"));
@@ -47,14 +49,17 @@ public class ReportsIndexServlet extends HttpServlet {
             page = 1;
         }
 
+        Employee e = (Employee)request.getSession().getAttribute("login_employee");
+
         List<Report> reports = em.createNamedQuery("getAllReports", Report.class)
                 .setFirstResult(15 * (page - 1))
                 .setMaxResults(15)
+                .setParameter("employee", e)
                 .getResultList();
 
         long reports_count = (long)em.createNamedQuery("getReportsCount", Long.class)
+                .setParameter("employee", e)
                 .getSingleResult();
-
 
 
 
@@ -74,8 +79,6 @@ public class ReportsIndexServlet extends HttpServlet {
 
             box.setEmployee(reports.get(i).getEmployee());
 
-            Employee e = (Employee)request.getSession().getAttribute("login_employee");
-
 
             List<Follow> follow = em.createNamedQuery("getAllFollows", Follow.class)
                     .setParameter("employee", e)
@@ -84,13 +87,20 @@ public class ReportsIndexServlet extends HttpServlet {
 
 
 
-            if(follow != null && follow.size() > 0 ) {
+
+
+            if(follow  != null && follow.size() > 0 ) {
                 box.setFollow(follow.get(0));
-            }else {
+            } else {
                 box.setFollow(null);
             }
             boxList.add(box);
-            }
+        }
+
+
+
+
+
 
         em.close();
         request.setAttribute("reports", boxList);

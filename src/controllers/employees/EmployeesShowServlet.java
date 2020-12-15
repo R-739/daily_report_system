@@ -44,7 +44,6 @@ public class EmployeesShowServlet extends HttpServlet {
 
         request.setAttribute("employee", e);
         request.setAttribute("_token", request.getSession().getId());
-
         request.getSession().setAttribute("coworker_id",e);
 
 
